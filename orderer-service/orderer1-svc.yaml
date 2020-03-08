@@ -1,0 +1,34 @@
+--- #---------------- Orderer0 Service ---------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: orderer1
+  name: orderer1
+  namespace: hyperledger
+spec:
+  type: ClusterIP
+  ports:
+    - name: "orderer"
+      port: 7050
+      targetPort: 7050
+  selector:
+    app: orderer1
+---
+#---------------- Orderer1 Metrics Service ---------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: orderer1
+    metrics-service: "true"
+  name: orderer1-metrics
+  namespace: hyperledger
+spec:
+  type: ClusterIP
+  ports:
+    - name: "orderer-metrics"
+      port: 8443
+      targetPort: 8443
+  selector:
+    app: orderer1

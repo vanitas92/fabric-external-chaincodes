@@ -1,0 +1,34 @@
+#---------------- Peer0 Org1 Service ---------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: peer0-org1
+  name: peer0-org1
+  namespace: hyperledger
+spec:
+  type: ClusterIP
+  ports:
+  - name: "peer-core"
+    port: 7051
+    targetPort: 7051
+  selector:
+    app: peer0-org1
+---
+#---------------- Peer0 Org1 Metrics Service ---------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: peer0-org1
+    metrics-service: "true"
+  name: peer0-org1-metrics
+  namespace: hyperledger
+spec:
+  type: ClusterIP
+  ports:
+  - name: "peer-metrics"
+    port: 9443
+    targetPort: 9443
+  selector:
+    app: peer0-org1

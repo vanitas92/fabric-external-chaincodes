@@ -1,0 +1,75 @@
+--- #---------------- CLI Deployment ---------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cli-org2
+  name: cli-org2
+  namespace: hyperledger
+spec:
+  selector:
+    matchLabels:
+      app: cli-org2
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: cli-org2
+    spec:
+      containers:
+        - env:
+            - name: FABRIC_LOGGING_SPEC
+              value: INFO
+            - name: CORE_PEER_ADDRESS
+              value: peer0-org2:7051
+            - name: CORE_PEER_ID
+              value: cli-org2
+            - name: CORE_PEER_LOCALMSPID
+              value: org2MSP
+            - name: CORE_PEER_MSPCONFIGPATH
+              value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/users/Admin@org2/msp
+            - name: CORE_PEER_TLS_CERT_FILE
+              value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/server.crt
+            - name: CORE_PEER_TLS_ENABLED
+              value: "true"
+            - name: CORE_PEER_TLS_KEY_FILE
+              value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/server.key
+            - name: CORE_PEER_TLS_ROOTCERT_FILE
+              value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/ca.crt
+            - name: GOPATH
+              value: /opt/gopath
+            - name: ORDERER_CA
+              value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/consortium/orderers/orderer0/msp/tlscacerts/tlsca.consortium-cert.pem
+          image: hyperledger/fabric-tools:amd64-2.0.1
+          name: cli
+          tty: true
+          volumeMounts:
+            - mountPath: /host/var/run/
+              name: cli-claim0
+            - mountPath: /opt/gopath/src/github.com/marbles/
+              name: cli-claim1
+            - mountPath: /opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/channel-artifacts
+              name: cli-claim2
+            - mountPath: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+              name: cli-claim3
+          workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+      restartPolicy: Always
+      volumes:
+        - name: cli-claim0
+          hostPath:
+            path: /var/run/
+            type: Directory
+        - name: cli-claim1
+          hostPath:
+            path: /home/fabric-external-chaincodes/chaincode
+            type: Directory
+        - name: cli-claim2
+          hostPath:
+            path: /home/fabric-external-chaincodes/channel-artifacts
+            type: Directory
+        - name: cli-claim3
+          hostPath:
+            path: /home/fabric-external-chaincodes/crypto-config
+            type: Directory

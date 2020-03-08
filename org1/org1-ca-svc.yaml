@@ -1,0 +1,16 @@
+#---------------- CA OE1 Service ---------------
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ca-org1
+  name: ca-org1
+  namespace: hyperledger
+spec:
+  type: ClusterIP
+  ports:
+  - name: "https"
+    port: 7054
+    targetPort: 7054
+  selector:
+    app: ca-org1

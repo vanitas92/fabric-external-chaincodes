@@ -1,0 +1,31 @@
+---
+#---------------- Chaincode Deployment ---------------------
+apiVersion: apps/v1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: chaincode-marbles-org1
+  namespace: hyperledger
+  labels:
+    app: chaincode-marbles-org1
+spec:
+  selector:
+    matchLabels:
+      app: chaincode-marbles-org1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: chaincode-marbles-org1
+    spec:
+      containers:
+        - image: chaincode/marbles:1.0
+          name: chaincode-marbles-org1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CHAINCODE_CCID
+              value: "marbles:d8140fbc1a0903bd88611a96c5b0077a2fdeef00a95c05bfe52e207f5f9ab79d"
+            - name: CHAINCODE_ADDRESS
+              value: "0.0.0.0:7052"
+          ports:
+            - containerPort: 7052
