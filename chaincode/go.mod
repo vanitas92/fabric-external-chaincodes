@@ -1,4 +1,4 @@
-module github.com/marbles/degree
+module github.com/marbles
   
 go 1.12
 
