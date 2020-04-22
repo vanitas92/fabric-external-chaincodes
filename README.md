@@ -65,11 +65,13 @@ kubectl create -f chaincode/k8s
 ## Approve the chaincode and commit it to the channel
 
 ```
-peer lifecycle chaincode approveformyorg --channelID mychannel --name marbles --version 1.0 --init-required --package-id marbles:e001937433673b11673d660d142c722fc372905db87f88d2448eee42c9c63064 --sequence 1 -o orderer0:7050 --tls --cafile $ORDERER_CA --signature-policy "AND ('org1MSP.peer','org2MSP.peer')"
+peer lifecycle chaincode approveformyorg --channelID mychannel --name marbles --version 1.0 --init-required --package-id marbles:d8140fbc1a0903bd88611a96c5b0077a2fdeef00a95c05bfe52e207f5f9ab79d --sequence 1 -o orderer0:7050 --tls --cafile $ORDERER_CA
 
-peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name marbles --version 1.0 --init-required --sequence 1 -o -orderer0:7050 --tls --cafile $ORDERER_CA --signature-policy "AND ('org1MSP.peer','org2MSP.peer')"
+peer lifecycle chaincode approveformyorg --channelID mychannel --name marbles --version 1.0 --init-required --package-id marbles:af45e0faa9676dd884a56e34b6a9bc1f7f1df04d6356aa1b2b9f123bd1d9e9e6 --sequence 1 -o orderer0:7050 --tls --cafile $ORDERER_CA
 
-peer lifecycle chaincode commit -o orderer0:7050 --channelID mychannel --name marbles --version 1.0 --sequence 1 --init-required --tls true --cafile $ORDERER_CA --peerAddresses peer0-org1:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1/peers/peer0-org1/tls/ca.crt --peerAddresses peer0-org2:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/ca.crt --signature-policy "AND ('org1MSP.peer','org2MSP.peer')"
+peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name marbles --version 1.0 --init-required --sequence 1 -o -orderer0:7050 --tls --cafile $ORDERER_CA
+
+peer lifecycle chaincode commit -o orderer0:7050 --channelID mychannel --name marbles --version 1.0 --sequence 1 --init-required --tls true --cafile $ORDERER_CA --peerAddresses peer0-org1:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1/peers/peer0-org1/tls/ca.crt --peerAddresses peer0-org2:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/ca.crt
 ```
 
 ## Invoke and query the chaincode

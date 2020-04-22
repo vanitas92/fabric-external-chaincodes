@@ -65,7 +65,7 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.0.1
+          image: hyperledger/fabric-orderer:amd64-2.1.0
           name: orderer
           ports:
             - containerPort: 7050
