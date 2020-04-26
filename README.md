@@ -5,9 +5,9 @@ Refer the tutorial and instructions in this article: https://medium.com/@pau.ara
 ## Install the binaries
 
 ```sh
-wget https://github.com/hyperledger/fabric/releases/download/v2.0.1/hyperledger-fabric-linux-amd64-2.0.1.tar.gz
+wget https://github.com/hyperledger/fabric/releases/download/v2.1.0/hyperledger-fabric-linux-amd64-2.1.0.tar.gz
 
-tar -xzf hyperledger-fabric-linux-amd64-2.0.1.tar.gz
+tar -xzf hyperledger-fabric-linux-amd64-2.1.0.tar.gz
 
 # Move to the bin path
 mv bin/* /bin
@@ -17,10 +17,10 @@ configtxgen --version
 
 # Should print the following output:
 # configtxgen:
-#  Version: 2.0.1
-#  Commit SHA: 1cfa5da98
-#  Go version: go1.13.4
-#  OS/Arch: linux/amd64
+#  Version: 2.1.0
+#  Commit SHA: 1bdf975
+#  Go version: go1.14.1
+#  OS/Arch: linux/amd64
 ```
 
 ## Launching the network
