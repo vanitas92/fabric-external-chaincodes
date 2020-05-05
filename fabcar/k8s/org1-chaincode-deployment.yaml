@@ -1,0 +1,31 @@
+---
+#---------------- Chaincode Deployment ---------------------
+apiVersion: apps/v1 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: chaincode-fabcar-org1
+  namespace: hyperledger
+  labels:
+    app: chaincode-fabcar-org1
+spec:
+  selector:
+    matchLabels:
+      app: chaincode-fabcar-org1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: chaincode-fabcar-org1
+    spec:
+      containers:
+        - image: chaincode/fabcar:1.0
+          name: chaincode-fabcar-org1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CHAINCODE_CCID
+              value: "fabcar:005c35f4f172c056723eca09d41e8048e0beaa2712d920c19af837640df7e2aa"
+            - name: CHAINCODE_ADDRESS
+              value: "0.0.0.0:7052"
+          ports:
+            - containerPort: 7052

@@ -54,6 +54,8 @@ spec:
               name: cli-claim2
             - mountPath: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
               name: cli-claim3
+            - mountPath: /opt/gopath/src/github.com/fabcar/
+              name: cli-fabcar
           workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
       restartPolicy: Always
       volumes:
@@ -73,3 +75,6 @@ spec:
           hostPath:
             path: /home/fabric-external-chaincodes/crypto-config
             type: Directory
+        - name: cli-fabcar
+          hostPath:
+            path: /home/fabric-external-chaincodes/fabcar
