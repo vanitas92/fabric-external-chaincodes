@@ -83,3 +83,22 @@ peer chaincode invoke -o orderer0:7050 --tls true --cafile $ORDERER_CA -C mychan
 
 peer chaincode query -C mychannel -n marbles -c '{"Args":["readMarble","marble1"]}'
 ```
+
+## Commands for ContractApi based External Chaincode
+
+```
+peer lifecycle chaincode approveformyorg --channelID mychannel --name fabcar --version 1.0 --package-id fabcar:005c35f4f172c056723eca09d41e8048e0beaa2712d920c19af837640df7e2aa --sequence 1 -o orderer0:7050 --tls --cafile $ORDERER_CA
+
+
+peer lifecycle chaincode approveformyorg --channelID mychannel --name fabcar --version 1.0 --package-id fabcar:61ab817a6ad76098d340952e5d8e928d9c5ddff1a53341dc8d0c64b4345564b0 --sequence 1 -o orderer0:7050 --tls --cafile $ORDERER_CA
+
+
+peer lifecycle chaincode checkcommitreadiness --channelID mychannel --name fabcar --version 1.0 --sequence 1 -o -orderer0:7050 --tls --cafile $ORDERER_CA
+
+peer lifecycle chaincode commit -o orderer0:7050 --channelID mychannel --name fabcar --version 1.0 --sequence 1 --tls true --cafile $ORDERER_CA --peerAddresses peer0-org1:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1/peers/peer0-org1/tls/ca.crt --peerAddresses peer0-org2:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/ca.crt
+
+
+peer chaincode invoke -o orderer0:7050 --tls true --cafile $ORDERER_CA -C mychannel -n fabcar --peerAddresses peer0-org1:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1/peers/peer0-org1/tls/ca.crt --peerAddresses peer0-org2:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2/peers/peer0-org2/tls/ca.crt -c '{"Args":["InitLedger"]}' --waitForEvent
+
+peer chaincode query -C mychannel -n fabcar -c '{"Args":["QueryAllCars"]}' 
+```
