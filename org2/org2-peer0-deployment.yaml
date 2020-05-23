@@ -64,8 +64,6 @@ spec:
             - containerPort: 7053
             - containerPort: 9443
           volumeMounts:
-            - mountPath: /host/var/run/
-              name: peer0-org2-claim0
             - mountPath: /etc/hyperledger/fabric/msp
               name: peer0-org2-claim1
             - mountPath: /etc/hyperledger/fabric/tls
@@ -75,15 +73,19 @@ spec:
             - mountPath: /etc/hyperledger/fabric/core.yaml
               name: builders-config
               subPath: core.yaml
-            - mountPath: /builders/external
-              name: external-builder
-          workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+            # - mountPath: /builders/external
+            #   name: external-builder
+            - mountPath: /builders/external/bin/detect
+              name: external-builder-detect
+              subPath: detect
+            - mountPath: /builders/external/bin/build
+              name: external-builder-build
+              subPath: build
+            - mountPath: /builders/external/bin/release
+              name: external-builder-release
+              subPath: release
       restartPolicy: Always
       volumes:
-        - name: peer0-org2-claim0
-          hostPath:
-            path: /var/run
-            type: Directory
         - name: peer0-org2-claim1
           hostPath:
             path: /home/fabric-external-chaincodes/crypto-config/peerOrganizations/org2/peers/peer0-org2/msp
@@ -94,14 +96,32 @@ spec:
             type: Directory
         - name: peer0-persistentdata
           hostPath:
-            path: /home/pau/storage/peer0-org2
+            path: /home/storage/peer0-org2
             type: DirectoryOrCreate
-        - name: external-builder
-          hostPath:
-            path: /home/fabric-external-chaincodes/buildpack
         - name: builders-config
           configMap:
             name: builders-config
             items:
               - key: core.yaml
                 path: core.yaml
+        - name: external-builder-detect
+          configMap:
+            name: builders-config
+            items:
+              - key: detect
+                path: detect
+                mode: 0544
+        - name: external-builder-build
+          configMap:
+            name: builders-config
+            items:
+              - key: build
+                path: build
+                mode: 0544
+        - name: external-builder-release
+          configMap:
+            name: builders-config
+            items:
+              - key: release
+                path: release
+                mode: 0544
