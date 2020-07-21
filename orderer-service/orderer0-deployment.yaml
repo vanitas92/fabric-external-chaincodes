@@ -84,7 +84,7 @@ spec:
       volumes:
         - name: orderer-persistentdata
           hostPath:
-            path: /home/pau/storage/orderer
+            path: /home/storage/orderer
             type: DirectoryOrCreate
         - name: orderer-claim0
           hostPath:

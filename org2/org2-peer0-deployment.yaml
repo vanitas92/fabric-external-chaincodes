@@ -73,8 +73,6 @@ spec:
             - mountPath: /etc/hyperledger/fabric/core.yaml
               name: builders-config
               subPath: core.yaml
-            # - mountPath: /builders/external
-            #   name: external-builder
             - mountPath: /builders/external/bin/detect
               name: external-builder-detect
               subPath: detect
