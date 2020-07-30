@@ -65,7 +65,7 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.1.0
+          image: hyperledger/fabric-orderer:amd64-2.2.0
           name: orderer
           ports:
             - containerPort: 7050
@@ -84,7 +84,7 @@ spec:
       volumes:
         - name: orderer2-persistentdata
           hostPath:
-            path: /home/pau/storage/orderer2
+            path: /home/storage/orderer2
             type: DirectoryOrCreate
         - name: orderer2-claim0
           hostPath:
