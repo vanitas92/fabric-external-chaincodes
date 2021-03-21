@@ -18,8 +18,8 @@ configtxgen --version
 # Should print the following output:
 # configtxgen:
 #  Version: 2.3.1
-#  Commit SHA: 5ea85bc54
-#  Go version: go1.14.4
+#  Commit SHA: 2f69b4222
+#  Go version: go1.14.12
 #  OS/Arch: linux/amd64
 ```
 
