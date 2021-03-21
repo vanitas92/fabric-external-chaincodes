@@ -50,13 +50,11 @@ spec:
               value: /etc/hyperledger/fabric/tls/server.key
             - name: CORE_PEER_TLS_ROOTCERT_FILE
               value: /etc/hyperledger/fabric/tls/ca.crt
-            - name: CORE_VM_ENDPOINT
-              value: http://localhost:2375
             - name: CORE_OPERATIONS_LISTENADDRESS
               value: 0.0.0.0:9443
             - name: CORE_METRICS_PROVIDER
               value: prometheus
-          image: hyperledger/fabric-peer:amd64-2.2.0
+          image: hyperledger/fabric-peer:amd64-2.3.1
           name: peer0
           ports:
             - containerPort: 7051

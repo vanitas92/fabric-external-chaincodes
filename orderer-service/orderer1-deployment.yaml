@@ -36,7 +36,7 @@ spec:
             - orderer
           env:
             - name: FABRIC_LOGGING_SPEC
-              value: DEBUG
+              value: INFO
             - name: ORDERER_OPERATIONS_LISTENADDRESS
               value: 0.0.0.0:8443
             - name: ORDERER_METRICS_PROVIDER
@@ -65,7 +65,7 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.2.0
+          image: hyperledger/fabric-orderer:amd64-2.3.1
           name: orderer
           ports:
             - containerPort: 7050
