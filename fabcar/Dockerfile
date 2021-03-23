@@ -37,4 +37,4 @@ COPY --from=build /go/src/github.com/fabcar/chaincode /chaincode
 
 USER app
 
-CMD /chaincode
+ENTRYPOINT ["/chaincode"]
