@@ -42,12 +42,10 @@ spec:
               value: /opt/gopath
             - name: ORDERER_CA
               value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/consortium/orderers/orderer0/msp/tlscacerts/tlsca.consortium-cert.pem
-          image: hyperledger/fabric-tools:amd64-2.2.0
+          image: hyperledger/fabric-tools:amd64-2.3.1
           name: cli
           tty: true
           volumeMounts:
-            # - mountPath: /host/var/run/
-            #   name: cli-claim0
             - mountPath: /opt/gopath/src/github.com/marbles/
               name: cli-claim1
             - mountPath: /opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/channel-artifacts
@@ -59,10 +57,6 @@ spec:
           workingDir: /opt/gopath/src/github.com/hyperledger/fabric/peer
       restartPolicy: Always
       volumes:
-        # - name: cli-claim0
-        #   hostPath:
-        #     path: /var/run/
-        #     type: Directory
         - name: cli-claim1
           hostPath:
             path: /home/fabric-external-chaincodes/chaincode

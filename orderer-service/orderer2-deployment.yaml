@@ -36,17 +36,21 @@ spec:
             - orderer
           env:
             - name: FABRIC_LOGGING_SPEC
-              value: DEBUG
+              value: INFO
             - name: ORDERER_OPERATIONS_LISTENADDRESS
               value: 0.0.0.0:8443
             - name: ORDERER_METRICS_PROVIDER
               value: prometheus
             - name: ORDERER_GENERAL_GENESISFILE
               value: /var/hyperledger/orderer/genesis.block
-            - name: ORDERER_GENERAL_GENESISMETHOD
+            - name: ORDERER_GENERAL_BOOTSTRAPMETHOD
               value: file
+            - name: ORDERER_CHANNELPARTICIPATION_ENABLED
+              value: "true"
             - name: ORDERER_GENERAL_LISTENADDRESS
               value: 0.0.0.0
+            - name: ORDERER_GENERAL_LISTENPORT
+              value: "7050"
             - name: ORDERER_GENERAL_LOCALMSPDIR
               value: /var/hyperledger/orderer/msp
             - name: ORDERER_GENERAL_LOCALMSPID
@@ -65,7 +69,19 @@ spec:
               value: /var/hyperledger/orderer/tls/server.key
             - name: ORDERER_GENERAL_CLUSTER_ROOTCAS
               value: "[/var/hyperledger/orderer/tls/ca.crt]"
-          image: hyperledger/fabric-orderer:amd64-2.2.0
+            - name: ORDERER_ADMIN_TLS_CERTIFICATE
+              value: /var/hyperledger/orderer/tls/server.crt
+            - name: ORDERER_ADMIN_TLS_ENABLED
+              value: "true"
+            - name: ORDERER_ADMIN_TLS_PRIVATEKEY
+              value: /var/hyperledger/orderer/tls/server.key
+            - name: ORDERER_ADMIN_TLS_ROOTCAS
+              value: "[/var/hyperledger/orderer/tls/ca.crt]"
+            - name: ORDERER_ADMIN_TLS_CLIENTROOTCAS
+              value: "[/var/hyperledger/orderer/tls/ca.crt]"
+            - name: ORDERER_ADMIN_LISTENADDRESS
+              value: "0.0.0.0:7053"
+          image: hyperledger/fabric-orderer:amd64-2.3.1
           name: orderer
           ports:
             - containerPort: 7050

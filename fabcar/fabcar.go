@@ -22,8 +22,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"strconv"
 	"os"
+	"strconv"
 
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -55,13 +55,13 @@ func main() {
 	if err != nil {
 		fmt.Println("Error starting a new ContractApi Chaincode:", err)
 	}
-	
+
 	server := &shim.ChaincodeServer{
 		CCID:    os.Getenv("CHAINCODE_CCID"),
 		Address: os.Getenv("CHAINCODE_ADDRESS"),
 		CC:      cc,
 		TLSProps: shim.TLSProperties{
-				Disabled: true,
+			Disabled: true,
 		},
 	}
 
@@ -179,17 +179,3 @@ func (s *SmartContract) ChangeCarOwner(ctx contractapi.TransactionContextInterfa
 
 	return ctx.GetStub().PutState(carNumber, carAsBytes)
 }
-
-// func main() {
-
-// 	chaincode, err := contractapi.NewChaincode(new(SmartContract))
-
-// 	if err != nil {
-// 		fmt.Printf("Error create fabcar chaincode: %s", err.Error())
-// 		return
-// 	}
-
-// 	if err := chaincode.Start(); err != nil {
-// 		fmt.Printf("Error starting fabcar chaincode: %s", err.Error())
-// 	}
-// }
