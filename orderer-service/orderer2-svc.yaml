@@ -12,6 +12,9 @@ spec:
     - name: "orderer"
       port: 7050
       targetPort: 7050
+    - name: "admin"
+      port: 7053
+      targetPort: 7053
   selector:
     app: orderer2
 ---
