@@ -42,7 +42,7 @@ spec:
               value: 0.0.0.0:8443
             - name: FABRIC_CA_SERVER_METRICS_PROVIDER
               value: prometheus
-          image: hyperledger/fabric-ca:amd64-1.4.9
+          image: hyperledger/fabric-ca:1.5.6
           name: ca-org2
           ports:
             - containerPort: 7054

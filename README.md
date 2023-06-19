@@ -5,21 +5,21 @@ Refer the tutorial and instructions in this article: https://medium.com/@pau.ara
 ## Install the binaries
 
 ```sh
-wget https://github.com/hyperledger/fabric/releases/download/v2.3.1/hyperledger-fabric-linux-amd64-2.3.1.tar.gz
+wget https://github.com/hyperledger/fabric/releases/download/v2.5.3/hyperledger-fabric-linux-amd64-2.5.3.tar.gz
 
-tar -xzf hyperledger-fabric-linux-amd64-2.3.1.tar.gz
+tar -xzf hyperledger-fabric-linux-amd64-2.5.3.tar.gz
 
 # Move to the bin path
-mv bin/* /bin
+mv bin/* /usr/local/bin
 
 # Check that you have successfully installed the tools by executing
 configtxgen --version
 
 # Should print the following output:
 # configtxgen:
-#  Version: 2.3.1
-#  Commit SHA: 2f69b4222
-#  Go version: go1.14.12
+#  Version: v2.5.3
+#  Commit SHA: 8e3bbcc
+#  Go version: go1.20.5
 #  OS/Arch: linux/amd64
 ```
 

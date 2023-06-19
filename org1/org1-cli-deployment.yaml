@@ -42,7 +42,7 @@ spec:
               value: /opt/gopath
             - name: ORDERER_CA
               value: /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/consortium/orderers/orderer0/msp/tlscacerts/tlsca.consortium-cert.pem
-          image: hyperledger/fabric-tools:amd64-2.3.1
+          image: hyperledger/fabric-tools:2.5.3
           name: cli
           tty: true
           volumeMounts:

@@ -10,7 +10,7 @@ COMMAND="$1"
 function verifyArg() {
 
     if [ $ARGS_NUMBER -ne 1 ]; then
-        echo "Useage: networkOps.sh start | status | clean | cli | peer"
+        echo "Usage: networkOps.sh start | status | clean | cli | peer"
         exit 1;
     fi
 }
@@ -43,10 +43,6 @@ function replacePrivateKey () {
 }
 
 function generateCerts(){
-
-    if [ ! -f $GOPATH/bin/cryptogen ]; then
-        go get github.com/hyperledger/fabric/common/tools/cryptogen
-    fi
     
     echo
         echo "##########################################################"
@@ -56,7 +52,7 @@ function generateCerts(){
                 rm -rf ./crypto-config
         fi
 
-    $GOPATH/bin/cryptogen generate --config=./crypto-config.yaml
+    cryptogen generate --config=./crypto-config.yaml
     echo
 }
 
@@ -64,33 +60,27 @@ function generateCerts(){
 function generateChannelArtifacts(){
 
     if [ ! -d ./channel-artifacts ]; then
-                mkdir channel-artifacts
-        fi
-
-        if [ ! -f $GOPATH/bin/configtxgen ]; then
-        go get github.com/hyperledger/fabric/common/tools/configtxgen
+        mkdir channel-artifacts
     fi
 
     echo
         echo "#################################################################"
-        echo "### Generating channel configuration transaction 'channel.tx' ###"
+        echo "######   Generating genesis block of channel mychannel   ########"
         echo "#################################################################"
 
-    $GOPATH/bin/configtxgen -profile TwoOrgsOrdererGenesis -channelID testchainid -outputBlock ./channel-artifacts/genesis.block
-    $GOPATH/bin/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID "mychannel"
-
+        configtxgen -profile TwoOrgsOrdererGenesis -channelID mychannel -outputBlock ./channel-artifacts/genesis.block
 
     echo
         echo "#################################################################"
         echo "#######    Generating anchor peer update for Org1MSP   ##########"
         echo "#################################################################"
-        $GOPATH/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/org1Anchors.tx  -channelID "mychannel" -asOrg org1MSP
+        configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/org1Anchors.tx  -channelID "mychannel" -asOrg org1MSP
 
         echo
         echo "#################################################################"
         echo "#######    Generating anchor peer update for Org2MSP   ##########"
         echo "#################################################################"
-        $GOPATH/bin/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/org2Anchors.tx  -channelID "mychannel" -asOrg org2MSP
+        configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/org2Anchors.tx  -channelID "mychannel" -asOrg org2MSP
         echo
 }
 
@@ -167,6 +157,6 @@ case $COMMAND in
         dockerCli
         ;;
     *)
-        echo "Useage: networkOps.sh start | status | clean | cli "
+        echo "Usage: networkOps.sh start | status | clean | cli "
         exit 1;
 esac
